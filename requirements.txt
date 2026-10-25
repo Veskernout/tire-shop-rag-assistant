@@ -1,0 +1,22 @@
+# --- LlamaIndex (линия 0.10.x, API совместима с src/rag/*) ---
+llama-index-core==0.10.68.post1
+llama-index-embeddings-huggingface==0.2.3
+llama-index-llms-llama-cpp==0.1.3
+llama-index-vector-stores-chroma==0.1.10
+
+# --- Эмбеддинги/реранк ---
+sentence-transformers==3.4.1
+
+# --- Векторное хранилище ---
+chromadb==0.5.23
+# posthog < 3: фикс несовместимости телеметрии chromadb c новыми версиями
+posthog==2.5.0
+
+# --- Парсинг HTML -> Markdown ---
+beautifulsoup4==4.12.3
+html5lib==1.1
+requests==2.32.3
+
+# --- Скачивание моделей с Hugging Face Hub ---
+huggingface-hub==0.27.0
+hf-transfer==0.1.8

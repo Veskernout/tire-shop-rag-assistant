@@ -1,0 +1,27 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- Модели и векторное хранилище (скачиваются/собираются при запуске) ---
+models/
+chroma_db/
+
+# --- Сгенерированная база знаний (создаётся из data/samples скриптами) ---
+data/*.md
+!data/samples/
+
+# --- Env ---
+.env
+
+# --- IDE / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

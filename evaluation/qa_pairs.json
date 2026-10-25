@@ -1,0 +1,42 @@
+[
+  {
+    "question": "Какой минимальный заказ для доставки?",
+    "expected_keywords": ["1000"]
+  },
+  {
+    "question": "Сколько стоит доставка по городу?",
+    "expected_keywords": ["500"]
+  },
+  {
+    "question": "Какие способы оплаты доступны?",
+    "expected_keywords": ["наличн", "карт"]
+  },
+  {
+    "question": "Можно ли оплатить безналичным переводом?",
+    "expected_keywords": ["юрид", "безналич"]
+  },
+  {
+    "question": "Какая цена у Demo Winter A 205/55 R16?",
+    "expected_keywords": ["7990"]
+  },
+  {
+    "question": "Есть ли шипы у Demo Nordic B 215/60 R17?",
+    "expected_keywords": ["нет"]
+  },
+  {
+    "question": "Сколько дней доставка Demo Nordic B?",
+    "expected_keywords": ["5"]
+  },
+  {
+    "question": "Есть ли доставка в регионы?",
+    "expected_keywords": ["транспортн", "предоплат"]
+  },
+  {
+    "question": "Можно ли забрать самовывозом?",
+    "expected_keywords": ["самовывоз"]
+  },
+  {
+    "question": "Есть ли у вас диски на конкретную модель автомобиля?",
+    "expected_keywords": ["нет информации"]
+  }
+]
