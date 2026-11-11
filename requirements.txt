@@ -18,5 +18,8 @@ html5lib==1.1
 requests==2.32.3
 
 # --- Скачивание моделей с Hugging Face Hub ---
-huggingface-hub==0.27.0
+huggingface-hub>=0.26.0,<0.27.0
 hf-transfer==0.1.8
+
+# --- LLM inference (llama.cpp) ---
+llama-cpp-python==0.2.90
