@@ -17,9 +17,12 @@ MODEL_REPO = os.environ.get("RAG_MODEL_REPO", "TheBloke/saiga_mistral_7b-GGUF")
 MODEL_FILE = os.environ.get("RAG_MODEL_FILE", "saiga_mistral_7b.Q4_K_M.gguf")
 MODEL_DIR = Path(os.environ.get("RAG_MODEL_DIR", "./models"))
 
-# Cross-encoder для rerank'а — это отдельная архитектура от биэнкодер-эмбеддингов.
+# Ускорение загрузки моделей с Hugging Face Hub
+os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "1"
+
+# Reranker использует ту же модель, что и эмбеддинги — избегает конфликтов версий sentence-transformers/torch
 RERANK_MODEL = os.environ.get(
-    "RAG_RERANK_MODEL", "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1"
+    "RAG_RERANK_MODEL", "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 )
 
 CONTEXT_WINDOW = 4096

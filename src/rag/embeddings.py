@@ -6,7 +6,7 @@ from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 EMBED_MODEL_NAME = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
 
-def configure_embeddings(buffer_size: int = 1, breakpoint_percentile: int = 85) -> None:
+def configure_embeddings(buffer_size: int = 1, breakpoint_percentile: int = 85, chunk_size: int = 256, chunk_overlap: int = 50) -> None:
     embed_model = HuggingFaceEmbedding(model_name=EMBED_MODEL_NAME)
     Settings.embed_model = embed_model
 
@@ -14,5 +14,7 @@ def configure_embeddings(buffer_size: int = 1, breakpoint_percentile: int = 85) 
         buffer_size=buffer_size,
         breakpoint_percentile_threshold=breakpoint_percentile,
         embed_model=embed_model,
+        chunk_size=chunk_size,
+        chunk_overlap=chunk_overlap,
     )
     Settings.node_parser = splitter
