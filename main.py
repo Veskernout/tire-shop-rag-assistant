@@ -7,8 +7,14 @@
 from __future__ import annotations
 
 import argparse
+import logging
 
 from src.pipeline import build_knowledge_base, build_rag_stack, detect_gpu_layers, run_evaluation
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+)
 
 
 def main() -> None:

@@ -1,0 +1,1 @@
+"""Тесты для Tire Shop RAG Assistant."""

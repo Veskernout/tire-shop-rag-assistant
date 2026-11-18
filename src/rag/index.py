@@ -1,6 +1,7 @@
 """Построение индекса в ChromaDB."""
 from __future__ import annotations
 
+import logging
 from pathlib import Path
 
 import chromadb
@@ -8,7 +9,10 @@ from chromadb.config import Settings as ChromaSettings
 from llama_index.core import Document, StorageContext, VectorStoreIndex
 from llama_index.vector_stores.chroma import ChromaVectorStore
 
-CHROMA_DIR = "./chroma_db"
+logger = logging.getLogger(__name__)
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+CHROMA_DIR = str(PROJECT_ROOT / "chroma_db")
 COLLECTION_NAME = "tire_shop_demo"
 
 

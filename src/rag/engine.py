@@ -1,6 +1,7 @@
 """Настройка LLM и query engine."""
 from __future__ import annotations
 
+import logging
 import os
 from pathlib import Path
 
@@ -10,12 +11,16 @@ from llama_index.llms.llama_cpp import LlamaCPP
 
 from src.rag.prompts import build_qa_prompt, completion_to_prompt, messages_to_prompt
 
+logger = logging.getLogger(__name__)
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
 # Модель можно переопределить через переменные окружения
 # (например, для быстрой проверки на маленькой GGUF в Colab/локально):
 #   RAG_MODEL_REPO=Qwen/Qwen2.5-0.5B-Instruct-GGUF
 MODEL_REPO = os.environ.get("RAG_MODEL_REPO", "TheBloke/saiga_mistral_7b-GGUF")
 MODEL_FILE = os.environ.get("RAG_MODEL_FILE", "saiga_mistral_7b.Q4_K_M.gguf")
-MODEL_DIR = Path(os.environ.get("RAG_MODEL_DIR", "./models"))
+MODEL_DIR = Path(os.environ.get("RAG_MODEL_DIR", str(PROJECT_ROOT / "models")))
 
 # Ускорение загрузки моделей с Hugging Face Hub
 os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "1"
@@ -35,7 +40,7 @@ def ensure_model() -> Path:
     if not model_path.exists():
         from huggingface_hub import hf_hub_download
 
-        print(f"Скачивание модели {MODEL_REPO}/{MODEL_FILE} …")
+        logger.info("Скачивание модели %s/%s …", MODEL_REPO, MODEL_FILE)
         hf_hub_download(repo_id=MODEL_REPO, filename=MODEL_FILE, local_dir=str(MODEL_DIR))
     return model_path
 
@@ -52,7 +57,7 @@ def build_llm(model_path: Path, n_gpu_layers: int = -1) -> LlamaCPP:
             "n_threads": os.cpu_count() or 4,
             "n_ctx": CONTEXT_WINDOW,  # единый размер контекста
             "verbose": False,
-            "stop": ["\n\n", "###", "<|im_end|>", "Пользователь:", "User:"],
+            "stop": ["\n\n", "###", "Пользователь:", "User:", "Ассистент:"],
             "repeat_penalty": 1.2,
             "top_p": 0.9,
             "top_k": 30,

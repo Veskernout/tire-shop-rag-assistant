@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import shutil
 import subprocess
 from pathlib import Path
@@ -19,9 +20,12 @@ from src.rag.engine import build_llm, build_query_engine, build_reranker, ensure
 from src.rag.index import build_index
 from src.utils import ensure_dir
 
-SAMPLES_DIR = Path("data/samples")
-DATA_DIR = Path("data")
-EVAL_PATH = Path("evaluation/qa_pairs.json")
+logger = logging.getLogger(__name__)
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+SAMPLES_DIR = PROJECT_ROOT / "data" / "samples"
+DATA_DIR = PROJECT_ROOT / "data"
+EVAL_PATH = PROJECT_ROOT / "evaluation" / "qa_pairs.json"
 
 
 def build_knowledge_base(
@@ -34,7 +38,7 @@ def build_knowledge_base(
     parse_and_save_delivery(samples / "delivery.html", out / "delivery_policy.md")
     parse_and_save_payment(samples / "payment.html", out / "payment_policy.md")
     parse_and_save_catalog(samples / "catalog.html", out / "product_catalog.md")
-    print(f"База знаний собрана: {out}/*.md")
+    logger.info("База знаний собрана: %s/*.md", out)
 
 
 def detect_gpu_layers(force_cpu: bool = False) -> int:
@@ -90,8 +94,8 @@ def run_evaluation(engine, eval_path: str | Path = EVAL_PATH, preview_chars: int
         passed += int(hit)
 
         preview = answer if len(answer) <= preview_chars else answer[:preview_chars] + "…"
-        print(f"[{'OK' if hit else 'MISS'}] {question}\n  → {preview}\n")
+        logger.info("[%s] %s\n  → %s\n", "OK" if hit else "MISS", question, preview)
 
     stats = {"total": total, "passed": passed, "accuracy": passed / total}
-    print(f"✅ Passed {passed}/{total} ({stats['accuracy']:.0%})")
+    logger.info("✅ Passed %d/%d (%.0%%)", passed, total, stats["accuracy"])
     return stats
