@@ -1,4 +1,4 @@
-# --- Основные пакеты проекта (без жестких пинов, чтобы pip сам разрешал зависимости) ---
+# --- Основные пакеты проекта (минимальный набор, версии см. в requirements.lock) ---
 llama-index-core
 llama-index-embeddings-huggingface
 llama-index-llms-llama-cpp
@@ -18,3 +18,6 @@ hf-transfer
 
 # --- LLM inference (llama.cpp) ---
 llama-cpp-python
+
+# Для детерминированной сборки используйте requirements.lock:
+#   pip install -r requirements.lock

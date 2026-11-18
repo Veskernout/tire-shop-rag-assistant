@@ -72,7 +72,7 @@ python -m venv .venv
 # Linux/macOS:
 # source .venv/bin/activate
 
-pip install -r requirements.txt
+pip install -r requirements.lock
 
 # Полный прогон: парсинг → индекс → скачивание LLM (~4.2 ГБ) → evaluation
 python main.py

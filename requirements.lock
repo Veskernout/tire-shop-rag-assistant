@@ -1,0 +1,21 @@
+# Lock-файл с зафиксированными версиями (рабочая комбинация, проверенная локально).
+# Генерировался из .venv после успешного прогона пайплайна.
+# Установка: pip install -r requirements.lock
+
+# --- RAG core (фиксируем строго) ---
+llama-index-core==0.10.68.post1
+llama-index-embeddings-huggingface==0.2.3
+llama-index-llms-llama-cpp==0.1.3
+llama-index-vector-stores-chroma==0.1.10
+sentence-transformers==3.4.1
+chromadb==0.5.23
+llama-cpp-python==0.2.90
+
+# --- Скачивание моделей с Hugging Face Hub ---
+huggingface-hub==0.27.0
+hf-transfer==0.1.8
+
+# --- Парсинг HTML → Markdown ---
+beautifulsoup4==4.12.3
+html5lib==1.1
+requests==2.32.3
