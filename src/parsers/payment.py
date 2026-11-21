@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+
 from bs4 import BeautifulSoup
 
 from src.utils import save_markdown

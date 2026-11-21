@@ -1,7 +1,7 @@
 """Тесты для парсеров (src/parsers/)."""
 from pathlib import Path
 
-from src.parsers.catalog import parse_catalog_html, Product
+from src.parsers.catalog import Product, parse_catalog_html
 from src.parsers.delivery import parse_delivery_html
 from src.parsers.payment import parse_payment_html
 

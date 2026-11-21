@@ -54,20 +54,20 @@ def detect_gpu_layers(force_cpu: bool = False) -> int:
     if nvidia_smi is not None:
         try:
             result = subprocess.run(
-                [nvidia_smi, "-L"], capture_output=True, text=True, timeout=15
+                [nvidia_smi, "-L"], capture_output=True, text=True, timeout=15, check=False
             )
             if "GPU" in result.stdout:
                 return -1
-        except Exception:
-            pass
+        except Exception as exc:  # noqa: BLE001 — опциональная диагностика GPU
+            logger.warning("Не удалось выполнить nvidia-smi: %s", exc)
 
     try:
         import torch  # в Colab уже установлен
 
         if torch.cuda.is_available():
             return -1
-    except Exception:
-        pass
+    except Exception as exc:  # noqa: BLE001 — опциональная проверка CUDA
+        logger.warning("Не удалось проверить torch.cuda: %s", exc)
     return 0
 
 

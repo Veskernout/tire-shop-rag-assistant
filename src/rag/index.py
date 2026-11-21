@@ -41,8 +41,8 @@ def build_index(data_dir: str | Path = "data", reset: bool = True) -> VectorStor
     if reset:
         try:
             client.delete_collection(name=COLLECTION_NAME)
-        except Exception:
-            pass  # коллекции ещё нет — это нормально для первого запуска
+        except Exception as exc:  # noqa: BLE001 — коллекция может не существовать при первом запуске
+            logger.warning("Не удалось удалить коллекцию: %s", exc)
 
     collection = client.get_or_create_collection(COLLECTION_NAME)
     vector_store = ChromaVectorStore(chroma_collection=collection)

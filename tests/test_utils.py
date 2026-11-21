@@ -1,6 +1,5 @@
 """Тесты для утилит (src/utils.py)."""
 from pathlib import Path
-import tempfile
 
 from src.utils import clean_markdown, save_markdown
 
