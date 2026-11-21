@@ -17,7 +17,7 @@ RAG-ассистент для магазина шин на базе **LlamaIndex
 - семантический чанкинг `SemanticSplitterNodeParser`;
 - эмбеддинги `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`;
 - векторное хранилище **ChromaDB** (персистентное);
-- реранк **cross-encoder** `mmarco-mMiniLMv2-L12-H384-v1` (top-3 из retrieval top-5);
+- реранк `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` (та же модель, что и эмбеддинги, top-3 из retrieval top-5);
 - локальная LLM **Saiga Mistral 7B Q4_K_M** через `llama-cpp-python` (автоопределение GPU);
 - ChatML-промпт с anti-hallucination ограничениями;
 - минимальная evaluation (Q/A-пары + метрика «доля пройденных»).
@@ -37,7 +37,8 @@ RAG-ассистент для магазина шин на базе **LlamaIndex
 ```
 tire-shop-rag-assistant/
 ├── main.py                        # CLI-точка входа (сборка БЗ + evaluation)
-├── requirements.txt               # зависимости
+├── requirements.txt               # зависимости (без жёстких версий)
+├── requirements.lock              # зафиксированные версии для детерминированной сборки
 ├── assets/
 │   └── architecture.png           # схема пайплайна
 ├── data/
@@ -47,6 +48,13 @@ tire-shop-rag-assistant/
 │   └── qa_pairs.json              # QA-пары для проверки ответов
 ├── notebooks/
 │   └── 01_pipeline.ipynb          # ноутбук: Colab / локальный Jupyter
+├── tests/
+│   ├── __init__.py
+│   ├── test_utils.py              # тесты утилит
+│   └── test_parsers.py            # тесты парсеров HTML → Markdown
+├── .github/
+│   └── workflows/
+│       └── ci.yml                 # GitHub Actions: lint + тесты
 └── src/
     ├── pipeline.py                # оркестрация: единый код для main.py и ноутбука
     ├── utils.py                   # утилиты (markdown, пути)
@@ -101,7 +109,7 @@ https://colab.research.google.com/github/Veskernout/tire-shop-rag-assistant/blob
 3. Запустите все ячейки (**Среда выполнения → Выполнить все**).
 
 Что произойдёт при первом запуске:
-- установка `requirements.txt`;
+- установка `requirements.lock`;
 - пересборка `llama-cpp-python` под CUDA (~5–15 минут, только при активной GPU);
 - скачивание моделей: эмбеддинги (~470 МБ), cross-encoder реранкер (~460 МБ), Saiga 7B (~4.2 ГБ);
 - сборка базы знаний и индекса, прогон evaluation, интерактивный чат.
@@ -150,7 +158,7 @@ GPU-пересборка `llama-cpp-python` не выполняется.
 |---|---|
 | `RAG_MODEL_REPO` | `TheBloke/saiga_mistral_7b-GGUF` |
 | `RAG_MODEL_FILE` | `saiga_mistral_7b.Q4_K_M.gguf` |
-| `RAG_MODEL_DIR` | `./models` |
+| `RAG_MODEL_DIR` | `<корень репозитория>/models` (абсолютный путь) |
 | `RAG_RERANK_MODEL` | `cross-encoder/mmarco-mMiniLMv2-L12-H384-v1` |
 
 Пример быстрой проверки пайплайна на маленькой модели:

@@ -16,6 +16,8 @@ from src.pipeline import (
     run_evaluation,
 )
 
+logger = logging.getLogger(__name__)
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
@@ -51,11 +53,11 @@ def main() -> None:
 
         configure_embeddings()
         build_index("data", reset=not args.keep_collection)
-        print("Готово: база знаний собрана, индекс создан (LLM пропущен, --skip-model).")
+        logger.info("Готово: база знаний собрана, индекс создан (LLM пропущен, --skip-model).")
         return
 
     gpu_layers = detect_gpu_layers(force_cpu=args.cpu)
-    print(f"n_gpu_layers={gpu_layers} ({'GPU' if gpu_layers == -1 else 'CPU'})")
+    logger.info("n_gpu_layers=%s (%s)", gpu_layers, "GPU" if gpu_layers == -1 else "CPU")
 
     engine = build_rag_stack(gpu_layers=gpu_layers, reset_collection=not args.keep_collection)
     run_evaluation(engine)
