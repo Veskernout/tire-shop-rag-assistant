@@ -70,6 +70,10 @@ tire-shop-rag-assistant/
 
 Требования: **Python 3.10+**, ~8 ГБ RAM. На диск понадобится ~6 ГБ на модели.
 
+> 📦 **Два файла зависимостей:**
+> - `requirements.lock` — зафиксированные версии для локальной разработки (детерминированная сборка).
+> - `requirements.txt` — без жёстких версий, для Google Colab (pip сам подберёт совместимые версии под Python 3.13).
+
 ```bash
 git clone https://github.com/Veskernout/tire-shop-rag-assistant.git
 cd tire-shop-rag-assistant
@@ -109,7 +113,7 @@ https://colab.research.google.com/github/Veskernout/tire-shop-rag-assistant/blob
 3. Запустите все ячейки (**Среда выполнения → Выполнить все**).
 
 Что произойдёт при первом запуске:
-- установка `requirements.lock`;
+- установка `requirements.txt` (без жёстких версий, для Colab);
 - пересборка `llama-cpp-python` под CUDA (~5–15 минут, только при активной GPU);
 - скачивание моделей: эмбеддинги (~470 МБ), cross-encoder реранкер (~460 МБ), Saiga 7B (~4.2 ГБ);
 - сборка базы знаний и индекса, прогон evaluation, интерактивный чат.

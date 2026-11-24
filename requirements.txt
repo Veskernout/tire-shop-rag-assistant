@@ -1,4 +1,4 @@
-# --- Основные пакеты проекта (минимальный набор, версии см. в requirements.lock) ---
+# --- Основные пакеты проекта (без жёстких версий — для Colab, pip сам разрешит зависимости) ---
 llama-index-core
 llama-index-embeddings-huggingface
 llama-index-llms-llama-cpp
