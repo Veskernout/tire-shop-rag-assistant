@@ -95,6 +95,9 @@ def run_evaluation(engine, eval_path: str | Path = EVAL_PATH, preview_chars: int
 
         preview = answer if len(answer) <= preview_chars else answer[:preview_chars] + "…"
         logger.info("[%s] %s\n  → %s\n", "OK" if hit else "MISS", question, preview)
+        print(f"[{'OK' if hit else 'MISS'}] {question}")
+        print(f"  Ожидалось: {expected}")
+        print(f"  Ответ: {preview}\n")
 
     stats = {"total": total, "passed": passed, "accuracy": passed / total}
     logger.info("✅ Passed %d/%d (%.0%%)", passed, total, stats["accuracy"])
